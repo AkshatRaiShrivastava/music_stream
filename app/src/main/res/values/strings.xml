@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Music Stream</string>
+    <string name="app_describe">My App</string>
+    <string name="lyrics">lyrics</string>
+</resources>

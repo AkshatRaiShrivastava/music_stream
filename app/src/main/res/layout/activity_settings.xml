@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:padding="16dp"
+    android:layout_height="match_parent"
+    tools:context=".SettingsActivity">
+
+        <RelativeLayout
+            android:id="@+id/toolbar"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/back_icon"
+                app:tint="@color/white"
+                android:id="@+id/back_btn"
+                android:layout_centerVertical="true"/>
+            <TextView
+                android:id="@+id/activity_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Settings"
+                android:textColor="@color/white"
+                android:textSize="28sp" />
+
+        </RelativeLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_below="@id/toolbar"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/settings_fields"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Add or Edit Your Name"
+                android:textSize="24sp"
+                android:textColor="@color/textWhite"/>
+            <EditText
+                android:layout_marginTop="5dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="23sp"
+                android:backgroundTint="@color/textWhite"
+                android:background="@drawable/rounded_bg"
+                android:textColor="@color/black"
+                android:padding="10dp"
+                android:id="@+id/name_edit_text"/>
+
+        </LinearLayout>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Reset Password"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/reset_password_btn"
+        android:padding="16dp"
+        android:layout_marginBottom="15dp"
+        android:layout_above="@id/apply_btn"
+        android:backgroundTint="@color/theme_color"
+        android:background="@drawable/rounded_bg"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Apply"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/apply_btn"
+        android:background="@drawable/rounded_bg"/>
+
+</RelativeLayout>
