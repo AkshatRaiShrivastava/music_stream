@@ -149,23 +149,23 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        binding.searchBarEditText.addTextChangedListener(object :
-            TextWatcher {
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-                TODO("Not yet implemented")
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                TODO("Not yet implemented")
-            }
-
-            override fun afterTextChanged(s: Editable?) {
-                val searchQuery = s.toString().trim()
-                filterSongs(searchQuery)
-            }
-
-        }
-        )
+//        binding.searchBarEditText.addTextChangedListener(object :
+//            TextWatcher {
+//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+//
+//            }
+//
+//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+//
+//            }
+//
+//            override fun afterTextChanged(s: Editable?) {
+//                val searchQuery = s.toString().trim()
+//                filterSongs(searchQuery)
+//            }
+//
+//        }
+//        )
         MyExoplayer.getInstance()?.addListener(object : Player.Listener {
             override fun onPositionDiscontinuity(
                 oldPosition: Player.PositionInfo,
@@ -224,14 +224,14 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun filterSongs(query: String) {
-        songsDb.startAt(query).get().addOnSuccessListener {
-
-        }
-
-
-        // Update your UI with the filteredSongs list (e.g., update a RecyclerView)
-    }
+//    fun filterSongs(query: String) {
+//        songsDb.startAt(query).get().addOnSuccessListener {
+//
+//        }
+//
+//
+//        // Update your UI with the filteredSongs list (e.g., update a RecyclerView)
+//    }
 
     fun showPopupMenu() {
         val popupMenu = PopupMenu(this, binding.optionBtn)
