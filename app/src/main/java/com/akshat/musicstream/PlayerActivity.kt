@@ -35,29 +35,15 @@ import kotlinx.coroutines.launch
 
 class PlayerActivity : AppCompatActivity() {
 
-    lateinit var gestureDetector: GestureDetector
-    private val mFirebaseRemoteConfig: FirebaseRemoteConfig? = null
     lateinit var binding1: ActivityMainBinding
     lateinit var binding: ActivityPlayerBinding
     lateinit var exoPlayer: ExoPlayer
-    private val isFetchingEnabled = true
-    private var isNetworkAvailable = false
-    val db = FirebaseFirestore.getInstance()
     val userId = FirebaseAuth.getInstance().currentUser?.uid
     val songId = MyExoplayer.getCurrentSong()?.id
-    val coverUrl = MyExoplayer.getCurrentSong()?.coverUrl
 
-    //    val id = MyExoplayer.getCurrentSong()?.id
-    val title = MyExoplayer.getCurrentSong()?.title
-    val subtitle = MyExoplayer.getCurrentSong()?.subtitle
-    val lyrics = MyExoplayer.getCurrentSong()?.lyrics
-    val url = MyExoplayer.getCurrentSong()?.url
     val likeRef = FirebaseFirestore.getInstance().collection("likes").document("$userId")
 
-    val songDocumentName = songId.toString() + "-" + userId.toString()
-    var playWhenReady = true
-    var mediaItemIndex = 0
-    var playbackPosition = 0L
+
 
     @UnstableApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -152,35 +138,19 @@ class PlayerActivity : AppCompatActivity() {
         }
     }
 
-    private fun releasePlayer() {
-        exoPlayer.let { exoPlayer ->
-            playbackPosition = exoPlayer.currentPosition
-            mediaItemIndex = exoPlayer.currentMediaItemIndex
-            playWhenReady = exoPlayer.playWhenReady
-            exoPlayer.release()
-        }
-
-    }
-//    private fun initializePlayer() {
-//
-//        // Instead of exoPlayer.setMediaItem(mediaItem)
-//        exoPlayer.setMediaItems(listOf(mediaItem), mediaItemIndex, playbackPosition)
-//        exoPlayer.playWhenReady = playWhenReady
-//        exoPlayer.prepare()
-//    }
-
     fun likeSong() {
 
         val data = hashMapOf<String, Any>(
             "songs" to FieldValue.arrayUnion(songId)
         )
-//        (data["songs"] as? ArrayList<String>)?.add(songId.toString())
+
 
 
         likeRef.update(data).addOnSuccessListener {
             binding.likeBtn.visibility = View.GONE
             binding.likedBtn.visibility = View.VISIBLE
             Toast.makeText(this, "Song Liked", Toast.LENGTH_SHORT).show()
+
         }.addOnFailureListener {
             //code for on failure
         }

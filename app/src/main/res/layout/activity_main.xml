@@ -72,7 +72,6 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="120dp"
-            android:visibility="gone"
             android:id="@+id/search_recycler_view"/>
 
 
@@ -177,6 +176,39 @@
                     android:layout_below="@id/liked_songs_title"
                     android:layout_height="wrap_content"
                     android:id="@+id/liked_songs_recycler_view"/>
+
+            </RelativeLayout>
+
+
+
+<!--     Coke Studio Bharat       -->
+            <RelativeLayout
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:id="@+id/coke_studio_main_layout"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    tools:text="Trending"
+                    android:id="@+id/coke_studio_title"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:fontFamily="sans-serif-medium"/>
+
+                <ImageView
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/arrow_right"
+                    app:tint="@color/white"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_width="match_parent"
+                    android:layout_below="@id/coke_studio_title"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/coke_studio_recycler_view"/>
 
             </RelativeLayout>
 
@@ -315,7 +347,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_above="@id/bottom_navigation"
         android:padding="7dp"
         android:background="@drawable/rounded_bg"
         android:id="@+id/player_view"
@@ -357,15 +389,15 @@
             android:layout_centerVertical="true"/>
 
 
-        <SeekBar
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_below="@id/play_pause_image"
-            android:layout_marginTop="10dp"
-            android:id="@+id/player_view_seekbar"/>
-
 
     </RelativeLayout>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+
+        android:id="@+id/bottom_navigation"/>
 
 
 </RelativeLayout>

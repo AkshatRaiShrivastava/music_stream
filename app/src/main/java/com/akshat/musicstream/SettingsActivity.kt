@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.akshat.musicstream.R.color.theme_color
 import com.akshat.musicstream.databinding.ActivitySettingsBinding
 import com.akshat.musicstream.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -32,6 +33,16 @@ class SettingsActivity : AppCompatActivity() {
             onBackPressedDispatcher.onBackPressed()
         }
 
+        binding.darkModeToggle.setOnCheckedChangeListener { _, isChecked ->
+            if (isChecked) {
+                // Dark mode is enabled
+                Toast.makeText(this, "Dark mode is enabled", Toast.LENGTH_SHORT).show()
+
+            } else {
+                // Dark mode is disabled
+                Toast.makeText(this, "Dark mode is disabled", Toast.LENGTH_SHORT).show()
+            }
+        }
         binding.resetPasswordBtn.setOnClickListener{
             startActivity(Intent(this,ResetPasswordActivity::class.java))
         }

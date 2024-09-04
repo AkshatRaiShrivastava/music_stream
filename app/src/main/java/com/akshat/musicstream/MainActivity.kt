@@ -4,6 +4,8 @@ import android.content.Intent
 import android.graphics.Color
 import android.graphics.PorterDuff
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
@@ -58,9 +60,7 @@ class MainActivity : AppCompatActivity() {
     val likeRef = db.collection("likes").document("$userId")
     val songsDb = db.collection("songs")
 
-    val allSongs = listOf(songsDb)
 
-    @OptIn(UnstableApi::class)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -79,6 +79,12 @@ class MainActivity : AppCompatActivity() {
             binding.likedSongsLayout,
             binding.likedSongsTitle,
             binding.likedSongsRecyclerView
+        )
+        setupSections(
+            "Coke Studio Bharat",
+            binding.cokeStudioMainLayout,
+            binding.cokeStudioTitle,
+            binding.cokeStudioRecyclerView
         )
         setupSections(
             "section1",
@@ -149,52 +155,27 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-//        binding.searchBarEditText.addTextChangedListener(object :
-//            TextWatcher {
-//            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-//
-//            }
-//
-//            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-//
-//            }
-//
-//            override fun afterTextChanged(s: Editable?) {
-//                val searchQuery = s.toString().trim()
-//                filterSongs(searchQuery)
-//            }
-//
-//        }
-//        )
-        MyExoplayer.getInstance()?.addListener(object : Player.Listener {
-            override fun onPositionDiscontinuity(
-                oldPosition: Player.PositionInfo,
-                newPosition: Player.PositionInfo,
-                reason: Int
-            ) {
+        binding.searchBarEditText.addTextChangedListener(object :
+            TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
 
             }
 
-            override fun onPlaybackStateChanged(playbackState: Int) {
-            }
-        })
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
-        binding.playerViewSeekbar.setOnSeekBarChangeListener(object :
-            SeekBar.OnSeekBarChangeListener {
-            override fun onProgressChanged(seekBar: SeekBar?, progress: Int, fromUser: Boolean) {
-                if (fromUser) {
-                    exoPlayer.seekTo(progress.toLong())
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                songsDb.orderBy("title", Query.Direction.ASCENDING).startAt(s.toString()).get().addOnSuccessListener {
+                    val songs = it.toObjects(SongModel::class.java)
+                    binding.searchRecyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
+//                    binding.searchRecyclerView.adapter = SectionSongListAdapter(songs)
                 }
             }
 
-            override fun onStartTrackingTouch(seekBar: SeekBar?) {
-                TODO("Not yet implemented")
-            }
+        }
+        )
 
-            override fun onStopTrackingTouch(seekBar: SeekBar?) {
-                TODO("Not yet implemented")
-            }
-        })
 
 
 
@@ -224,6 +205,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+
 //    fun filterSongs(query: String) {
 //        songsDb.startAt(query).get().addOnSuccessListener {
 //
@@ -231,6 +213,11 @@ class MainActivity : AppCompatActivity() {
 //
 //
 //        // Update your UI with the filteredSongs list (e.g., update a RecyclerView)
+//    }
+
+//    override fun onPause() {
+//        super.onPause()
+//        handler.removeCallbacks(updateSeekBarRunnable)
 //    }
 
     fun showPopupMenu() {
@@ -341,7 +328,9 @@ class MainActivity : AppCompatActivity() {
                     recyclerView.adapter = SectionSongListAdapter(songs)
                     mainLayout.setOnClickListener {
                         SongsListActivity.category = section
-                        startActivity(Intent(this@MainActivity, SongsListActivity::class.java))
+                        val intent = Intent(this@MainActivity,SongsListActivity::class.java)
+                        intent.putExtra("totalSongs", section.songs.size)
+                        this@MainActivity.startActivity(intent)
                     }
                 }
             }
@@ -355,7 +344,6 @@ class MainActivity : AppCompatActivity() {
     ) {
         likeRef.get().addOnSuccessListener {
             val arrayField: Any? = it?.get("songs")
-
             FirebaseFirestore.getInstance().collection("sections")
                 .document(id).get().addOnSuccessListener { itt ->
                     val section = itt.toObject(CategoryModel::class.java)
@@ -375,15 +363,13 @@ class MainActivity : AppCompatActivity() {
                         recyclerView.adapter = SectionSongListAdapter(songs)
                         mainLayout.setOnClickListener {
                             SongsListActivity.category = section
-                            startActivity(
-                                Intent(
-                                    this@MainActivity,
-                                    SongsListActivity::class.java
-                                )
-                            )
+                            val intent = Intent(this@MainActivity,SongsListActivity::class.java)
+                            intent.putExtra("totalSongs", section.songs.size)
+                            this@MainActivity.startActivity(intent)
                         }
                     }
                 }
+
         }
     }
 }

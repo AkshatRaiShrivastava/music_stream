@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.RoundedCorner
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.akshat.musicstream.LikedSongsActivity
 import com.akshat.musicstream.SongsListActivity
 import com.akshat.musicstream.databinding.CategoryItemRecyclerRowBinding
 import com.akshat.musicstream.models.CategoryModel
@@ -32,10 +31,11 @@ class CategoryAdapter (private val categoryList : List<CategoryModel>) :
 
             val context = binding.root.context
             binding.root.setOnClickListener{
-
                 SongsListActivity.category = category
-                context.startActivity(Intent(context,SongsListActivity::class.java))
-
+//                context.startActivity(Intent(context,SongsListActivity::class.java))
+                val intent = Intent(context,SongsListActivity::class.java)
+                intent.putExtra("totalSongs", category.songs.size)
+                context.startActivity(intent)
             }
         }
     }

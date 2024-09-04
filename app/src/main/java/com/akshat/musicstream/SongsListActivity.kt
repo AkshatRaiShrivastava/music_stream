@@ -53,6 +53,14 @@ class SongsListActivity : AppCompatActivity() {
         setupSongsListRecyclerView()
 
 
+        val totalSongs = intent.getIntExtra("totalSongs",0)
+        if (totalSongs == 1){
+            binding.totalSongs.text = "$totalSongs song"
+        }
+        else{
+            binding.totalSongs.text = "$totalSongs songs"
+        }
+
 
         //back button on click
         binding.backBtn.setOnClickListener {

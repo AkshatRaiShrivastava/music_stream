@@ -10,13 +10,9 @@ object MyExoplayer {
     private var exoPlayer:ExoPlayer? = null
 
     private var currentSong : SongModel?=null
-    private var lyrics : SongModel?=null
 
     fun getCurrentSong() : SongModel?{
         return currentSong
-    }
-    fun getLyrics(songId:String) : SongModel?{
-        return lyrics
     }
 
     fun getInstance():ExoPlayer?{
@@ -27,10 +23,10 @@ object MyExoplayer {
         if (exoPlayer==null)
             exoPlayer = ExoPlayer.Builder(context).build()
 
-        if (exoPlayer!!.playbackState == ExoPlayer.STATE_ENDED){
-            exoPlayer?.seekTo(0)
-            exoPlayer = ExoPlayer.Builder(context).build()
-        }
+//        if (exoPlayer!!.playbackState == ExoPlayer.STATE_ENDED){
+//            exoPlayer?.seekTo(0)
+//            exoPlayer = ExoPlayer.Builder(context).build()
+//        }
 
         if(currentSong != song){
             //its a new song so start playing it

@@ -25,10 +25,10 @@
             android:id="@+id/back_btn"/>
 
         <ImageView
-            android:layout_width="150dp"
+            android:layout_width="130dp"
             android:layout_centerVertical="true"
             android:layout_centerHorizontal="true"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:layout_margin="16dp"
             android:id="@+id/cover_image_view"/>
 
@@ -40,10 +40,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text = "Hindi"
-        android:textColor="@color/textWhite"
+        android:textColor="@color/white"
         android:textSize="24sp"
         android:gravity="center"
         android:id="@+id/name_text_view"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/textWhite"
+        android:text="no of songs"
+        android:textSize="14sp"
+        android:id="@+id/total_songs"/>
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
